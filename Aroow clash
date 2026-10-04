@@ -1,0 +1,3639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>Arrow Clash</title>
+
+<style>
+:root{
+  --bg:#090b10;
+  --panel:#11151d;
+  --panel2:#171c26;
+  --text:#f5f7fb;
+  --muted:#8992a3;
+  --accent:#6c63ff;
+  --accent2:#9b94ff;
+  --green:#25d695;
+  --red:#ff5263;
+  --yellow:#ffc857;
+  --blue:#42b8ff;
+  --border:rgba(255,255,255,.09);
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:
+    radial-gradient(circle at top,#191c35 0,#090b10 45%);
+  color:var(--text);
+  font-family:
+    Inter,system-ui,-apple-system,BlinkMacSystemFont,
+    "Segoe UI",sans-serif;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button{
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.app{
+  width:min(1100px,100%);
+  margin:auto;
+  min-height:100vh;
+  padding:18px;
+}
+
+/* HEADER */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:-.7px;
+}
+
+.logo-icon{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),#3c9cff);
+  box-shadow:0 10px 30px rgba(108,99,255,.35);
+  font-size:22px;
+}
+
+.top-best{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.top-best strong{
+  color:var(--yellow);
+}
+
+/* SCREENS */
+
+.screen{
+  animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* HOME */
+
+.hero{
+  padding:45px 10px 30px;
+  text-align:center;
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(45px,10vw,82px);
+  line-height:.95;
+  letter-spacing:-5px;
+  background:linear-gradient(135deg,#fff,#8f8aff,#43b8ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:600px;
+  margin:20px auto 28px;
+  line-height:1.6;
+}
+
+.primary-btn{
+  border:0;
+  border-radius:16px;
+  padding:16px 28px;
+  background:linear-gradient(135deg,var(--accent),#397dff);
+  font-weight:900;
+  box-shadow:0 15px 40px rgba(81,84,255,.28);
+  transition:.2s;
+}
+
+.primary-btn:hover{
+  transform:translateY(-2px);
+}
+
+.primary-btn:active{
+  transform:scale(.97);
+}
+
+.secondary-btn{
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:14px;
+  padding:13px 20px;
+  font-weight:800;
+}
+
+.home-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.stats{
+  margin:35px auto 0;
+  max-width:720px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:rgba(17,21,29,.85);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* LEVEL SCREEN */
+
+.section-title{
+  text-align:center;
+  margin:25px 0;
+}
+
+.section-title h2{
+  margin:0 0 7px;
+  font-size:32px;
+}
+
+.section-title p{
+  margin:0;
+  color:var(--muted);
+}
+
+.mode-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.mode{
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:18px;
+  padding:17px;
+  text-align:left;
+  transition:.2s;
+}
+
+.mode.active{
+  border-color:var(--accent);
+  background:rgba(108,99,255,.14);
+}
+
+.mode strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.mode span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.level-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+
+.level{
+  min-height:115px;
+  text-align:left;
+  padding:13px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:16px;
+  transition:.2s;
+}
+
+.level:hover:not(.locked){
+  transform:translateY(-2px);
+  border-color:var(--accent);
+}
+
+.level.locked{
+  opacity:.42;
+  cursor:not-allowed;
+}
+
+.level-number{
+  display:block;
+  font-size:11px;
+  font-weight:900;
+  color:var(--accent2);
+}
+
+.level-name{
+  display:block;
+  margin:7px 0;
+  font-size:14px;
+  font-weight:900;
+}
+
+.level-challenge{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.35;
+}
+
+.level-best{
+  display:block;
+  margin-top:9px;
+  color:var(--yellow);
+  font-size:10px;
+}
+
+/* GAME */
+
+.game-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.game-head-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:13px;
+}
+
+.game-title{
+  font-size:14px;
+  font-weight:900;
+}
+
+.game-sub{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.hud{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-bottom:12px;
+}
+
+.hud-item{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:11px;
+  text-align:center;
+}
+
+.hud-item small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.hud-item strong{
+  font-size:17px;
+}
+
+.race-bar{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.racer{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 13px;
+}
+
+.racer-top{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  font-weight:900;
+}
+
+.racer-status{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.racer.player{
+  border-color:rgba(108,99,255,.5);
+}
+
+.racer.bot{
+  border-color:rgba(255,82,99,.4);
+}
+
+/* CHALLENGE */
+
+.challenge{
+  margin-bottom:12px;
+  background:linear-gradient(
+    135deg,
+    rgba(108,99,255,.15),
+    rgba(66,184,255,.08)
+  );
+  border:1px solid rgba(108,99,255,.25);
+  border-radius:14px;
+  padding:11px 13px;
+}
+
+.challenge strong{
+  font-size:12px;
+}
+
+.challenge span{
+  color:var(--muted);
+  font-size:10px;
+  display:block;
+  margin-top:3px;
+}
+
+/* BOARD */
+
+.board-wrap{
+  display:flex;
+  justify-content:center;
+  margin:8px 0;
+}
+
+.board{
+  --size:5;
+  width:min(86vw,640px);
+  aspect-ratio:1;
+  display:grid;
+  grid-template-columns:repeat(var(--size),1fr);
+  gap:5px;
+  padding:7px;
+  background:#07090d;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+.cell{
+  position:relative;
+  min-width:0;
+  min-height:0;
+  border:1px solid rgba(255,255,255,.055);
+  background:#151a23;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  user-select:none;
+}
+
+.arrow{
+  font-size:clamp(16px,4vw,31px);
+  color:#cdd3df;
+  font-weight:900;
+}
+
+.cell.current{
+  background:rgba(108,99,255,.22);
+  border-color:rgba(108,99,255,.65);
+  box-shadow:inset 0 0 20px rgba(108,99,255,.12);
+}
+
+.cell.finish{
+  background:rgba(37,214,149,.12);
+  border-color:rgba(37,214,149,.5);
+}
+
+.cell.special-bonus{
+  background:rgba(255,200,87,.13);
+  border-color:rgba(255,200,87,.55);
+}
+
+.cell.special-trap{
+  background:rgba(255,82,99,.12);
+  border-color:rgba(255,82,99,.55);
+}
+
+.cell.special-teleport{
+  background:rgba(66,184,255,.12);
+  border-color:rgba(66,184,255,.55);
+}
+
+.marker{
+  position:absolute;
+  bottom:3px;
+  right:4px;
+  font-size:9px;
+}
+
+.player-marker{
+  position:absolute;
+  width:34%;
+  height:34%;
+  min-width:15px;
+  min-height:15px;
+  border-radius:50%;
+  background:var(--accent);
+  border:2px solid #fff;
+  box-shadow:0 0 20px rgba(108,99,255,.8);
+  z-index:5;
+}
+
+.bot-marker{
+  position:absolute;
+  width:25%;
+  height:25%;
+  min-width:12px;
+  min-height:12px;
+  border-radius:50%;
+  background:var(--red);
+  border:2px solid #fff;
+  box-shadow:0 0 15px rgba(255,82,99,.7);
+  z-index:4;
+}
+
+.message{
+  min-height:44px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:9px;
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:repeat(3,58px);
+  justify-content:center;
+  gap:7px;
+  margin-top:5px;
+}
+
+.control{
+  width:58px;
+  height:50px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--panel);
+  font-size:20px;
+  font-weight:900;
+}
+
+.control:active{
+  transform:scale(.94);
+  background:var(--panel2);
+}
+
+.control.up{
+  grid-column:2;
+}
+
+.control.left{
+  grid-column:1;
+  grid-row:2;
+}
+
+.control.down{
+  grid-column:2;
+  grid-row:2;
+}
+
+.control.right{
+  grid-column:3;
+  grid-row:2;
+}
+
+.game-actions{
+  display:flex;
+  justify-content:center;
+  gap:9px;
+  margin-top:14px;
+}
+
+/* MODAL */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(8px);
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:100;
+}
+
+.modal{
+  width:min(500px,100%);
+  background:#11151d;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.modal-icon{
+  font-size:50px;
+}
+
+.modal h2{
+  margin:10px 0 7px;
+  font-size:30px;
+}
+
+.modal p{
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.result-score{
+  font-size:35px;
+  font-weight:900;
+  color:var(--yellow);
+  margin:15px;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:18px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  background:#f5f7fb;
+  color:#080a0e;
+  padding:11px 16px;
+  border-radius:13px;
+  font-size:12px;
+  font-weight:900;
+  z-index:200;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+  .app{
+    padding:12px;
+  }
+
+  .hero{
+    padding-top:35px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+
+  .mode-grid{
+    grid-template-columns:1fr;
+  }
+
+  .level-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hud{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .race-bar{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .board{
+    width:94vw;
+    gap:3px;
+    padding:5px;
+  }
+}
+
+@media(max-width:380px){
+  .level-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .race-bar{
+    grid-template-columns:1fr;
+  }
+
+  .controls{
+    grid-template-columns:52px 52px 52px;
+  }
+
+  .control{
+    width:52px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+
+  <header class="topbar">
+    <div class="logo">
+      <div class="logo-icon">➤</div>
+      <span>ARROW CLASH</span>
+    </div>
+
+    <div class="top-best">
+      BEST <strong id="topBest">0</strong>
+    </div>
+  </header>
+
+
+  <!-- HOME -->
+
+  <main id="homeScreen" class="screen">
+
+    <section class="hero">
+
+      <h1>ARROW<br>CLASH</h1>
+
+      <p>
+        Follow the arrows, think fast and reach the goal.
+        Every level gets harder. Can you survive all
+        <strong>100 challenges?</strong>
+      </p>
+
+      <div class="home-actions">
+        <button class="primary-btn" id="playNow">
+          PLAY NOW ⚡
+        </button>
+
+        <button class="secondary-btn" id="howBtn">
+          HOW TO PLAY
+        </button>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong id="homeLevel">1</strong>
+          <span>LEVEL UNLOCKED</span>
+        </div>
+
+        <div class="stat">
+          <strong id="homeWins">0</strong>
+          <span>WINS</span>
+        </div>
+
+        <div class="stat">
+          <strong id="homeScore">0</strong>
+          <span>BEST SCORE</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- LEVEL SCREEN -->
+
+  <main id="levelsScreen" class="screen hidden">
+
+    <div class="section-title">
+      <h2>Choose Your Challenge</h2>
+      <p>100 levels. Increasing difficulty. One final clash.</p>
+    </div>
+
+    <div class="mode-grid">
+
+      <button class="mode active" data-mode="bot">
+        <strong>🤖 VS BOT</strong>
+        <span>Race against the computer.</span>
+      </button>
+
+      <button class="mode" data-mode="local">
+        <strong>👥 2 PLAYERS</strong>
+        <span>Take turns with a friend.</span>
+      </button>
+
+      <button class="mode" data-mode="practice">
+        <strong>🧠 PRACTICE</strong>
+        <span>Train without an opponent.</span>
+      </button>
+
+    </div>
+
+    <div id="levelGrid" class="level-grid"></div>
+
+  </main>
+
+
+  <!-- GAME SCREEN -->
+
+  <main id="gameScreen" class="screen hidden">
+
+    <div class="game-head">
+
+      <div class="game-head-left">
+
+        <button class="icon-btn" id="exitGame">
+          ←
+        </button>
+
+        <div>
+          <div class="game-title">
+            ARROW CLASH
+          </div>
+
+          <div class="game-sub">
+            LEVEL <span id="levelDisplay">1</span>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="secondary-btn" id="restartGame">
+        ↻
+      </button>
+
+    </div>
+
+
+    <div class="hud">
+
+      <div class="hud-item">
+        <small>TIME</small>
+        <strong id="timer">00:00</strong>
+      </div>
+
+      <div class="hud-item">
+        <small>SCORE</small>
+        <strong id="score">0</strong>
+      </div>
+
+      <div class="hud-item">
+        <small>COMBO</small>
+        <strong id="combo">0</strong>
+      </div>
+
+      <div class="hud-item">
+        <small>BEST</small>
+        <strong id="gameBest">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="challenge">
+
+      <strong id="challengeTitle">
+        FIRST STEPS
+      </strong>
+
+      <span id="challengeText">
+        Follow the arrows and reach the green goal.
+      </span>
+
+    </div>
+
+
+    <div class="race-bar">
+
+      <div class="racer player">
+
+        <div class="racer-top">
+          <span>🔵 YOU</span>
+          <span id="playerPosText">START</span>
+        </div>
+
+        <div class="racer-status" id="playerStatus">
+          Your turn
+        </div>
+
+      </div>
+
+
+      <div class="racer bot">
+
+        <div class="racer-top">
+          <span id="opponentName">🤖 BOT</span>
+          <span id="botPosText">START</span>
+        </div>
+
+        <div class="racer-status" id="opponentStatus">
+          Racing
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="board-wrap">
+      <div id="board" class="board"></div>
+    </div>
+
+
+    <div id="message" class="message">
+      Follow the arrow from your current tile.
+    </div>
+
+
+    <div class="controls">
+
+      <button class="control up" data-dir="up">
+        ↑
+      </button>
+
+      <button class="control left" data-dir="left">
+        ←
+      </button>
+
+      <button class="control down" data-dir="down">
+        ↓
+      </button>
+
+      <button class="control right" data-dir="right">
+        →
+      </button>
+
+    </div>
+
+
+    <div class="game-actions">
+
+      <button class="secondary-btn" id="restartGame2">
+        RESTART
+      </button>
+
+      <button class="secondary-btn" id="exitGame2">
+        EXIT
+      </button>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- RESULT MODAL -->
+
+<div id="resultOverlay" class="overlay hidden">
+
+  <div class="modal">
+
+    <div class="modal-icon" id="resultIcon">
+      🏆
+    </div>
+
+    <h2 id="resultTitle">
+      YOU WIN!
+    </h2>
+
+    <p id="resultText">
+      Great job!
+    </p>
+
+    <div class="result-score" id="resultScore">
+      +100
+    </div>
+
+    <div class="modal-actions">
+
+      <button class="primary-btn" id="nextLevelBtn">
+        NEXT LEVEL →
+      </button>
+
+      <button class="secondary-btn" id="levelSelectBtn">
+        LEVEL SELECT
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- HOW TO PLAY -->
+
+<div id="howOverlay" class="overlay hidden">
+
+  <div class="modal">
+
+    <div class="modal-icon">🧠</div>
+
+    <h2>HOW TO PLAY</h2>
+
+    <p>
+      Start from the first tile.
+      Look at the arrow on your current tile.
+      Move in the direction of the arrow.
+    </p>
+
+    <p>
+      🟢 Reach the green goal.<br>
+      🟡 Bonus tiles give extra points.<br>
+      🔴 Trap tiles punish mistakes.<br>
+      🔵 Teleport tiles can move you forward.
+    </p>
+
+    <p>
+      Later levels become faster and more difficult.
+      Finish quickly to earn a bigger score.
+    </p>
+
+    <button class="primary-btn" id="closeHow">
+      GOT IT
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   ARROW CLASH
+   100 LEVEL EDITION
+   ========================================================= */
+
+
+/* =========================================================
+   LEVEL DATA
+   ========================================================= */
+
+const levelNames = [
+  "First Steps",
+  "Arrow Alley",
+  "Quick Turn",
+  "Corner Chaos",
+  "Brain Jump",
+  "Tiny Escape",
+  "Speed Run",
+  "Trap Street",
+  "Sharp Turn",
+  "First Clash",
+
+  "Double Trouble",
+  "Wrong Way",
+  "Arrow Storm",
+  "Fast Fingers",
+  "Brain Maze",
+  "Cross Road",
+  "Lucky Path",
+  "Sharp Switch",
+  "Rush Hour",
+  "Red Zone",
+
+  "Mind Bender",
+  "Hidden Route",
+  "Crazy Maze",
+  "Speed Trap",
+  "No Mistakes",
+  "Arrow Attack",
+  "Twisted Road",
+  "Fast Escape",
+  "Brain Rush",
+  "Chaos Road",
+
+  "Four Corners",
+  "Dead End",
+  "Switchback",
+  "Hard Choice",
+  "Rapid Fire",
+  "Maze Runner",
+  "Danger Path",
+  "Arrow Jungle",
+  "Crazy Rush",
+  "Clash Zone",
+
+  "Brain Storm",
+  "Impossible Turn",
+  "Speed Demon",
+  "Trap Master",
+  "Arrow War",
+  "Mind Rush",
+  "Crazy Switch",
+  "Escape Artist",
+  "Red Storm",
+  "Halfway Hero",
+
+  "Fast Brain",
+  "Dark Path",
+  "Double Trap",
+  "Arrow Madness",
+  "No Looking Back",
+  "Rush Master",
+  "Brain Crusher",
+  "Crazy Route",
+  "Danger Zone",
+  "Clash Master",
+
+  "Ultimate Maze",
+  "Speed Clash",
+  "Trap Runner",
+  "Arrow Nightmare",
+  "Mind Attack",
+  "Crazy Escape",
+  "Fast Maze",
+  "Red Runner",
+  "Brain Fire",
+  "Chaos Master",
+
+  "Extreme Route",
+  "Arrow Hunter",
+  "Deadly Turn",
+  "Brain Storm X",
+  "Speed Killer",
+  "Maze King",
+  "Crazy King",
+  "Trap King",
+  "Arrow Champion",
+  "Final Sprint",
+
+  "Legend Path",
+  "Brain Legend",
+  "Speed Legend",
+  "Chaos Legend",
+  "Arrow Legend",
+  "Maze Legend",
+  "Trap Legend",
+  "Clash Legend",
+  "Ultimate Brain",
+  "Ultimate Speed",
+
+  "Final Brain",
+  "Final Rush",
+  "Final Maze",
+  "Final Clash",
+  "Ultimate Clash",
+  "Master Clash",
+  "Legend Clash",
+  "100th Challenge",
+  "Last Stand",
+  "👑 FINAL CLASH"
+];
+
+
+const levelChallenges = [
+
+  "Learn the basic arrow movement.",
+  "Make your first quick turns.",
+  "The route starts getting tricky.",
+  "Watch every corner.",
+  "Use your brain before moving.",
+  "Find the shortest escape.",
+  "Move quickly.",
+  "Danger starts here.",
+  "Sharp decisions required.",
+  "Your first real race.",
+
+  "Two difficult turns.",
+  "Some paths look dangerous.",
+  "Arrows become confusing.",
+  "Speed matters.",
+  "Think before every move.",
+  "Cross the board carefully.",
+  "Find the lucky route.",
+  "Switch directions quickly.",
+  "Race against the clock.",
+  "Red danger begins.",
+
+  "Think several moves ahead.",
+  "Hidden route challenge.",
+  "Multiple wrong turns.",
+  "Avoid traps.",
+  "One mistake can cost points.",
+  "Fast decisions.",
+  "Twisted routes.",
+  "Escape quickly.",
+  "Brain versus speed.",
+  "Chaotic movement.",
+
+  "Corners everywhere.",
+  "Avoid dead ends.",
+  "Switchback challenge.",
+  "Hard decisions.",
+  "Rapid movement.",
+  "Maze-style challenge.",
+  "Dangerous route.",
+  "Arrow overload.",
+  "Crazy speed.",
+  "Clash begins.",
+
+  "Heavy brain challenge.",
+  "Almost impossible decisions.",
+  "Very fast opponent.",
+  "Trap-heavy route.",
+  "Race mode.",
+  "Think fast.",
+  "Rapid switches.",
+  "Escape challenge.",
+  "Danger everywhere.",
+  "Halfway milestone.",
+
+  "Fast brain required.",
+  "Dark-looking danger route.",
+  "Double traps.",
+  "Arrow madness.",
+  "Don't look back.",
+  "Master your speed.",
+  "Huge brain challenge.",
+  "Crazy route.",
+  "Danger zone.",
+  "Become the clash master.",
+
+  "Ultimate maze.",
+  "Very fast race.",
+  "Trap runner challenge.",
+  "Nightmare difficulty.",
+  "Attack mode.",
+  "Crazy escape.",
+  "Fast maze.",
+  "Red runner.",
+  "Brain fire.",
+  "Chaos master.",
+
+  "Extreme route.",
+  "Hunt the correct path.",
+  "Deadly turns.",
+  "Advanced brain storm.",
+  "Speed becomes critical.",
+  "Maze king challenge.",
+  "Crazy king challenge.",
+  "Trap king challenge.",
+  "Champion level.",
+  "Final sprint begins.",
+
+  "Legend difficulty.",
+  "Legend brain challenge.",
+  "Legend speed.",
+  "Legend chaos.",
+  "Legend arrows.",
+  "Legend maze.",
+  "Legend traps.",
+  "Legend clash.",
+  "Ultimate brain test.",
+  "Ultimate speed test.",
+
+  "Final brain challenge.",
+  "Final rush.",
+  "Final maze.",
+  "Final clash.",
+  "Ultimate battle.",
+  "Master difficulty.",
+  "Legendary battle.",
+  "The 100th challenge.",
+  "Last stand.",
+  "👑 The ultimate Arrow Clash."
+];
+
+
+/* =========================================================
+   LEVEL SIZE
+   ========================================================= */
+
+const levelSizes = [];
+
+for(let i = 1; i <= 100; i++){
+
+  if(i <= 10){
+    levelSizes.push(5);
+  }
+  else if(i <= 20){
+    levelSizes.push(6);
+  }
+  else if(i <= 40){
+    levelSizes.push(7);
+  }
+  else if(i <= 60){
+    levelSizes.push(8);
+  }
+  else if(i <= 80){
+    levelSizes.push(9);
+  }
+  else if(i <= 95){
+    levelSizes.push(10);
+  }
+  else{
+    levelSizes.push(11);
+  }
+
+}
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const homeScreen = $("homeScreen");
+const levelsScreen = $("levelsScreen");
+const gameScreen = $("gameScreen");
+
+const boardElement = $("board");
+
+const resultOverlay = $("resultOverlay");
+const howOverlay = $("howOverlay");
+
+const toast = $("toast");
+
+
+/* =========================================================
+   GAME STATE
+   ========================================================= */
+
+let mode = "bot";
+
+let currentLevel = 1;
+
+let boardSize = 5;
+
+let boardData = [];
+
+let playerPos = 0;
+
+let botPos = 0;
+
+let finishPos = 0;
+
+let score = 0;
+
+let elapsed = 0;
+
+let combo = 0;
+
+let gameRunning = false;
+
+let timerInterval = null;
+
+let botTimeout = null;
+
+let localPlayer = 1;
+
+let specialTiles = {
+  bonus: new Set(),
+  trap: new Set(),
+  teleport: new Map()
+};
+
+
+/* =========================================================
+   SAVE DATA
+   ========================================================= */
+
+const SAVE_KEY = "arrowClashSaveV2";
+
+
+let saveData = {
+  unlocked:1,
+  best:0,
+  wins:0,
+  levelBest:{}
+};
+
+
+function loadSave(){
+
+  try{
+
+    const saved = localStorage.getItem(SAVE_KEY);
+
+    if(saved){
+
+      const parsed = JSON.parse(saved);
+
+      saveData = {
+        ...saveData,
+        ...parsed
+      };
+
+    }
+
+  }
+  catch(error){
+
+    console.log("Save load error",error);
+
+  }
+
+}
+
+
+function save(){
+
+  try{
+
+    localStorage.setItem(
+      SAVE_KEY,
+      JSON.stringify(saveData)
+    );
+
+  }
+  catch(error){
+
+    console.log("Save error",error);
+
+  }
+
+}
+
+
+/* =========================================================
+   BASIC UI
+   ========================================================= */
+
+function hideAllScreens(){
+
+  homeScreen.classList.add("hidden");
+  levelsScreen.classList.add("hidden");
+  gameScreen.classList.add("hidden");
+
+}
+
+
+function showHome(){
+
+  stopGame();
+
+  hideAllScreens();
+
+  homeScreen.classList.remove("hidden");
+
+  updateHomeStats();
+
+}
+
+
+function showLevels(){
+
+  stopGame();
+
+  hideAllScreens();
+
+  levelsScreen.classList.remove("hidden");
+
+  renderLevels();
+
+}
+
+
+function updateHomeStats(){
+
+  $("homeLevel").textContent =
+    saveData.unlocked || 1;
+
+  $("homeWins").textContent =
+    saveData.wins || 0;
+
+  $("homeScore").textContent =
+    saveData.best || 0;
+
+  $("topBest").textContent =
+    saveData.best || 0;
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message){
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },1600);
+
+}
+
+
+/* =========================================================
+   MODES
+   ========================================================= */
+
+document.querySelectorAll(".mode").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    document.querySelectorAll(".mode")
+      .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    mode = button.dataset.mode;
+
+    renderLevels();
+
+  });
+
+});
+
+
+/* =========================================================
+   LEVELS
+   ========================================================= */
+
+function renderLevels(){
+
+  const grid = $("levelGrid");
+
+  grid.innerHTML = "";
+
+  const unlocked =
+    Math.min(
+      100,
+      Math.max(1,saveData.unlocked || 1)
+    );
+
+
+  for(let i=1;i<=100;i++){
+
+    const button =
+      document.createElement("button");
+
+    button.className = "level";
+
+
+    if(i > unlocked){
+
+      button.classList.add("locked");
+
+    }
+
+
+    const best =
+      saveData.levelBest[i] || 0;
+
+
+    const challenge =
+      levelChallenges[i-1];
+
+
+    button.innerHTML = `
+
+      <span class="level-number">
+        LEVEL ${i}
+      </span>
+
+      <span class="level-name">
+        ${levelNames[i-1]}
+      </span>
+
+      <span class="level-challenge">
+        ${challenge}
+      </span>
+
+      <span class="level-best">
+        ${
+          i > unlocked
+          ? "🔒 Locked"
+          : best
+            ? "🏆 Best: " + best
+            : "Not played"
+        }
+      </span>
+
+    `;
+
+
+    if(i <= unlocked){
+
+      button.addEventListener(
+        "click",
+        ()=>startGame(i)
+      );
+
+    }
+
+
+    grid.appendChild(button);
+
+  }
+
+}
+
+
+/* =========================================================
+   BOARD MATH
+   ========================================================= */
+
+const directions = [
+
+  {
+    name:"up",
+    dx:0,
+    dy:-1,
+    glyph:"↑"
+  },
+
+  {
+    name:"right",
+    dx:1,
+    dy:0,
+    glyph:"→"
+  },
+
+  {
+    name:"down",
+    dx:0,
+    dy:1,
+    glyph:"↓"
+  },
+
+  {
+    name:"left",
+    dx:-1,
+    dy:0,
+    glyph:"←"
+  }
+
+];
+
+
+function indexFromXY(x,y){
+
+  return y * boardSize + x;
+
+}
+
+
+function xyFromIndex(index){
+
+  return {
+
+    x:index % boardSize,
+
+    y:Math.floor(index / boardSize)
+
+  };
+
+}
+
+
+function validDirections(index){
+
+  const p = xyFromIndex(index);
+
+  return directions.filter(d=>{
+
+    const nx = p.x + d.dx;
+
+    const ny = p.y + d.dy;
+
+    return (
+
+      nx >= 0 &&
+      nx < boardSize &&
+      ny >= 0 &&
+      ny < boardSize
+
+    );
+
+  });
+
+}
+
+
+function neighbor(index,direction){
+
+  const p = xyFromIndex(index);
+
+  const d =
+    directions.find(
+      x=>x.name===direction
+    );
+
+  if(!d) return null;
+
+  const nx = p.x + d.dx;
+
+  const ny = p.y + d.dy;
+
+  if(
+    nx < 0 ||
+    nx >= boardSize ||
+    ny < 0 ||
+    ny >= boardSize
+  ){
+
+    return null;
+
+  }
+
+  return indexFromXY(nx,ny);
+
+}
+
+
+/* =========================================================
+   LEVEL CONFIG
+   ========================================================= */
+
+function getLevelConfig(level){
+
+  return {
+
+    size:levelSizes[level-1],
+
+    timeLimit:
+      Math.min(
+        240,
+        120 + level * 1.2
+      ),
+
+    botDelay:
+      Math.max(
+        165,
+        920 - level * 7
+      ),
+
+    trapCount:
+      level >= 15
+      ? Math.min(
+          12,
+          Math.floor(level/10)
+        )
+      : 0,
+
+    bonusCount:
+      level >= 5
+      ? Math.min(
+          8,
+          1 + Math.floor(level/15)
+        )
+      : 0,
+
+    teleportCount:
+      level >= 30
+      ? Math.min(
+          6,
+          Math.floor(level/20)
+        )
+      : 0,
+
+    chaos:
+      level >= 50,
+
+    boss:
+      level % 10 === 0 || level === 100
+
+  };
+
+}
+
+
+/* =========================================================
+   RANDOM HELPERS
+   ========================================================= */
+
+function randomInt(min,max){
+
+  return Math.floor(
+    Math.random()*(max-min+1)
+  ) + min;
+
+}
+
+
+function shuffle(array){
+
+  for(
+    let i=array.length-1;
+    i>0;
+    i--
+  ){
+
+    const j =
+      Math.floor(
+        Math.random()*(i+1)
+      );
+
+    [array[i],array[j]] =
+      [array[j],array[i]];
+
+  }
+
+  return array;
+
+}
+
+
+/* =========================================================
+   GENERATE BOARD
+   ========================================================= */
+
+function generateBoard(){
+
+  const config =
+    getLevelConfig(currentLevel);
+
+  boardSize = config.size;
+
+  const total =
+    boardSize * boardSize;
+
+  boardData =
+    new Array(total);
+
+  const target =
+    total - 1;
+
+
+  /*
+    First create random legal arrows.
+  */
+
+  for(let i=0;i<total;i++){
+
+    const dirs =
+      validDirections(i);
+
+    const random =
+      dirs[
+        Math.floor(
+          Math.random()*dirs.length
+        )
+      ];
+
+    boardData[i] =
+      random.name;
+
+  }
+
+
+  /*
+    Create a guaranteed route.
+  */
+
+  let current = 0;
+
+  const path = [0];
+
+  const visited =
+    new Set([0]);
+
+
+  let attempts = 0;
+
+
+  while(
+    current !== target &&
+    attempts < 5000
+  ){
+
+    attempts++;
+
+
+    let choices =
+      validDirections(current)
+      .filter(d=>{
+
+        const n =
+          neighbor(
+            current,
+            d.name
+          );
+
+        return !visited.has(n);
+
+      });
+
+
+    if(!choices.length){
+
+      current = 0;
+
+      path.length = 1;
+
+      visited.clear();
+
+      visited.add(0);
+
+      continue;
+
+    }
+
+
+    /*
+      Prefer moving towards the target,
+      but occasionally make a strange turn.
+    */
+
+    shuffle(choices);
+
+
+    choices.sort((a,b)=>{
+
+      const na =
+        neighbor(
+          current,
+          a.name
+        );
+
+      const nb =
+        neighbor(
+          current,
+          b.name
+        );
+
+
+      const pa =
+        xyFromIndex(na);
+
+      const pb =
+        xyFromIndex(nb);
+
+
+      const tx =
+        boardSize-1;
+
+      const ty =
+        boardSize-1;
+
+
+      const da =
+        Math.abs(tx-pa.x) +
+        Math.abs(ty-pa.y);
+
+      const db =
+        Math.abs(tx-pb.x) +
+        Math.abs(ty-pb.y);
+
+
+      return da-db;
+
+    });
+
+
+    const chosen =
+      Math.random() < .78
+      ? choices[0]
+      : choices[
+          Math.floor(
+            Math.random()*choices.length
+          )
+        ];
+
+
+    boardData[current] =
+      chosen.name;
+
+
+    current =
+      neighbor(
+        current,
+        chosen.name
+      );
+
+
+    path.push(current);
+
+    visited.add(current);
+
+  }
+
+
+  /*
+    Make absolutely sure the final
+    route reaches the finish.
+  */
+
+  if(path.length >= 2){
+
+    const before =
+      path[path.length-2];
+
+    const finalDirection =
+      validDirections(before)
+      .find(d=>
+        neighbor(
+          before,
+          d.name
+        ) === target
+      );
+
+
+    if(finalDirection){
+
+      boardData[before] =
+        finalDirection.name;
+
+    }
+
+  }
+
+
+  finishPos = target;
+
+  playerPos = 0;
+
+  botPos = 0;
+
+
+  createSpecialTiles();
+
+}
+
+
+/* =========================================================
+   SPECIAL TILES
+   ========================================================= */
+
+function createSpecialTiles(){
+
+  specialTiles = {
+
+    bonus:new Set(),
+
+    trap:new Set(),
+
+    teleport:new Map()
+
+  };
+
+
+  const config =
+    getLevelConfig(currentLevel);
+
+  const total =
+    boardSize*boardSize;
+
+
+  const forbidden =
+    new Set([
+      0,
+      finishPos
+    ]);
+
+
+  /*
+    Bonus tiles
+  */
+
+  let attempts = 0;
+
+  while(
+    specialTiles.bonus.size <
+      config.bonusCount &&
+    attempts < 500
+  ){
+
+    attempts++;
+
+    const pos =
+      randomInt(1,total-2);
+
+    if(
+      forbidden.has(pos) ||
+      specialTiles.trap.has(pos)
+    ){
+
+      continue;
+
+    }
+
+    specialTiles.bonus.add(pos);
+
+  }
+
+
+  /*
+    Trap tiles
+  */
+
+  attempts = 0;
+
+  while(
+    specialTiles.trap.size <
+      config.trapCount &&
+    attempts < 1000
+  ){
+
+    attempts++;
+
+    const pos =
+      randomInt(1,total-2);
+
+    if(
+      forbidden.has(pos) ||
+      specialTiles.bonus.has(pos)
+    ){
+
+      continue;
+
+    }
+
+    specialTiles.trap.add(pos);
+
+  }
+
+
+  /*
+    Teleport pairs
+  */
+
+  if(config.teleportCount > 0){
+
+    const candidates = [];
+
+    for(let i=1;i<total-1;i++){
+
+      if(
+        !forbidden.has(i) &&
+        !specialTiles.bonus.has(i) &&
+        !specialTiles.trap.has(i)
+      ){
+
+        candidates.push(i);
+
+      }
+
+    }
+
+
+    shuffle(candidates);
+
+
+    const pairCount =
+      Math.min(
+        config.teleportCount,
+        Math.floor(candidates.length/2)
+      );
+
+
+    for(
+      let i=0;
+      i<pairCount*2;
+      i+=2
+    ){
+
+      const a = candidates[i];
+
+      const b = candidates[i+1];
+
+      specialTiles.teleport.set(a,b);
+
+      specialTiles.teleport.set(b,a);
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   START GAME
+   ========================================================= */
+
+function startGame(level){
+
+  currentLevel = level;
+
+  generateBoard();
+
+  score = 0;
+
+  elapsed = 0;
+
+  combo = 0;
+
+  localPlayer = 1;
+
+  gameRunning = true;
+
+
+  hideAllScreens();
+
+  gameScreen.classList.remove("hidden");
+
+
+  $("levelDisplay").textContent =
+    currentLevel;
+
+
+  $("score").textContent =
+    "0";
+
+
+  $("combo").textContent =
+    "0";
+
+
+  $("gameBest").textContent =
+    saveData.levelBest[currentLevel] || 0;
+
+
+  $("challengeTitle").textContent =
+    levelNames[currentLevel-1];
+
+
+  $("challengeText").textContent =
+    levelChallenges[currentLevel-1];
+
+
+  if(mode === "bot"){
+
+    $("opponentName").textContent =
+      "🤖 BOT";
+
+  }
+  else if(mode === "local"){
+
+    $("opponentName").textContent =
+      "🟠 PLAYER 2";
+
+  }
+  else{
+
+    $("opponentName").textContent =
+      "🎯 TARGET";
+
+  }
+
+
+  $("message").textContent =
+    "Follow the arrow from your current tile.";
+
+
+  $("playerStatus").textContent =
+    "Your turn";
+
+
+  $("opponentStatus").textContent =
+    mode === "practice"
+      ? "Practice"
+      : "Racing";
+
+
+  renderBoard();
+
+  startTimer();
+
+
+  if(mode === "bot"){
+
+    startBot();
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER BOARD
+   ========================================================= */
+
+function renderBoard(){
+
+  boardElement.innerHTML = "";
+
+  boardElement.style.setProperty(
+    "--size",
+    boardSize
+  );
+
+
+  for(let i=0;i<boardData.length;i++){
+
+    const cell =
+      document.createElement("div");
+
+    cell.className = "cell";
+
+
+    if(i === playerPos){
+
+      cell.classList.add("current");
+
+    }
+
+
+    if(i === finishPos){
+
+      cell.classList.add("finish");
+
+    }
+
+
+    if(
+      specialTiles.bonus.has(i)
+    ){
+
+      cell.classList.add("special-bonus");
+
+    }
+
+
+    if(
+      specialTiles.trap.has(i)
+    ){
+
+      cell.classList.add("special-trap");
+
+    }
+
+
+    if(
+      specialTiles.teleport.has(i)
+    ){
+
+      cell.classList.add("special-teleport");
+
+    }
+
+
+    const arrow =
+      document.createElement("span");
+
+    arrow.className = "arrow";
+
+
+    const direction =
+      directions.find(
+        d=>d.name===boardData[i]
+      );
+
+
+    arrow.textContent =
+      direction
+        ? direction.glyph
+        : "•";
+
+
+    cell.appendChild(arrow);
+
+
+    /*
+      Special icon
+    */
+
+    if(specialTiles.bonus.has(i)){
+
+      const marker =
+        document.createElement("span");
+
+      marker.className = "marker";
+
+      marker.textContent = "⭐";
+
+      cell.appendChild(marker);
+
+    }
+
+
+    if(specialTiles.trap.has(i)){
+
+      const marker =
+        document.createElement("span");
+
+      marker.className = "marker";
+
+      marker.textContent = "💥";
+
+      cell.appendChild(marker);
+
+    }
+
+
+    if(
+      specialTiles.teleport.has(i)
+    ){
+
+      const marker =
+        document.createElement("span");
+
+      marker.className = "marker";
+
+      marker.textContent = "🌀";
+
+      cell.appendChild(marker);
+
+    }
+
+
+    /*
+      Player
+    */
+
+    if(i === playerPos){
+
+      const marker =
+        document.createElement("div");
+
+      marker.className =
+        "player-marker";
+
+      cell.appendChild(marker);
+
+    }
+
+
+    /*
+      Bot
+    */
+
+    if(
+      mode === "bot" &&
+      i === botPos &&
+      botPos !== playerPos
+    ){
+
+      const marker =
+        document.createElement("div");
+
+      marker.className =
+        "bot-marker";
+
+      cell.appendChild(marker);
+
+    }
+
+
+    boardElement.appendChild(cell);
+
+  }
+
+
+  $("playerPosText").textContent =
+    playerPos === finishPos
+      ? "GOAL"
+      : String(playerPos+1);
+
+
+  $("botPosText").textContent =
+    mode === "practice"
+      ? "-"
+      : botPos === finishPos
+        ? "GOAL"
+        : String(botPos+1);
+
+}
+
+
+/* =========================================================
+   PLAYER MOVEMENT
+   ========================================================= */
+
+function movePlayer(direction){
+
+  if(!gameRunning){
+
+    return;
+
+  }
+
+
+  const allowed =
+    boardData[playerPos];
+
+
+  /*
+    Player must follow the arrow.
+  */
+
+  if(direction !== allowed){
+
+    combo = 0;
+
+    $("combo").textContent = "0";
+
+    score =
+      Math.max(
+        0,
+        score-10
+      );
+
+
+    $("score").textContent =
+      score;
+
+
+    $("message").textContent =
+      "❌ Wrong direction! Follow the arrow.";
+
+    showToast("-10  Wrong direction");
+
+    return;
+
+  }
+
+
+  const next =
+    neighbor(
+      playerPos,
+      direction
+    );
+
+
+  if(next === null){
+
+    combo = 0;
+
+    $("message").textContent =
+      "🚧 You cannot move outside the board.";
+
+    return;
+
+  }
+
+
+  playerPos = next;
+
+  combo++;
+
+
+  /*
+    Base movement score
+  */
+
+  score +=
+    10 +
+    Math.min(
+      50,
+      combo*2
+    );
+
+
+  /*
+    Bonus
+  */
+
+  if(
+    specialTiles.bonus.has(playerPos)
+  ){
+
+    score += 250;
+
+    showToast(
+      "⭐ BONUS +250"
+    );
+
+  }
+
+
+  /*
+    Trap
+  */
+
+  if(
+    specialTiles.trap.has(playerPos)
+  ){
+
+    score =
+      Math.max(
+        0,
+        score-150
+      );
+
+    combo = 0;
+
+    showToast(
+      "💥 TRAP -150"
+    );
+
+  }
+
+
+  /*
+    Teleport
+  */
+
+  if(
+    specialTiles.teleport.has(playerPos)
+  ){
+
+    const destination =
+      specialTiles.teleport.get(
+        playerPos
+      );
+
+
+    playerPos = destination;
+
+
+    score += 100;
+
+
+    showToast(
+      "🌀 TELEPORT +100"
+    );
+
+  }
+
+
+  $("score").textContent =
+    score;
+
+
+  $("combo").textContent =
+    combo;
+
+
+  $("message").textContent =
+    combo >= 5
+      ? "🔥 COMBO! Keep going!"
+      : "Good move! Follow the next arrow.";
+
+
+  renderBoard();
+
+
+  /*
+    Finish
+  */
+
+  if(playerPos === finishPos){
+
+    finishGame("player");
+
+    return;
+
+  }
+
+
+  /*
+    Local two-player mode.
+  */
+
+  if(mode === "local"){
+
+    localPlayer =
+      localPlayer === 1
+      ? 2
+      : 1;
+
+
+    if(localPlayer === 2){
+
+      $("message").textContent =
+        "🟠 Player 2's turn";
+
+    }
+    else{
+
+      $("message").textContent =
+        "🔵 Player 1's turn";
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   BOT
+   ========================================================= */
+
+function startBot(){
+
+  clearTimeout(botTimeout);
+
+
+  function botMove(){
+
+    if(!gameRunning){
+
+      return;
+
+    }
+
+
+    const direction =
+      boardData[botPos];
+
+
+    const next =
+      neighbor(
+        botPos,
+        direction
+      );
+
+
+    if(next !== null){
+
+      botPos = next;
+
+    }
+
+
+    /*
+      Bot gets affected by some
+      special tiles too.
+    */
+
+    if(
+      specialTiles.teleport.has(botPos)
+    ){
+
+      botPos =
+        specialTiles.teleport.get(
+          botPos
+        );
+
+    }
+
+
+    renderBoard();
+
+
+    if(botPos === finishPos){
+
+      if(playerPos !== finishPos){
+
+        finishGame("bot");
+
+        return;
+
+      }
+
+    }
+
+
+    const config =
+      getLevelConfig(currentLevel);
+
+
+    let delay =
+      config.botDelay;
+
+
+    /*
+      Boss levels are faster.
+    */
+
+    if(config.boss){
+
+      delay -= 60;
+
+    }
+
+
+    /*
+      Level 100 is extremely fast.
+    */
+
+    if(currentLevel === 100){
+
+      delay = 115;
+
+    }
+
+
+    /*
+      Small random reaction difference.
+    */
+
+    delay +=
+      randomInt(-25,35);
+
+
+    botTimeout =
+      setTimeout(
+        botMove,
+        Math.max(100,delay)
+      );
+
+  }
+
+
+  botTimeout =
+    setTimeout(
+      botMove,
+      700
+    );
+
+}
+
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+
+function startTimer(){
+
+  clearInterval(timerInterval);
+
+
+  timerInterval =
+    setInterval(()=>{
+
+      if(!gameRunning){
+
+        return;
+
+      }
+
+
+      elapsed++;
+
+
+      const minutes =
+        Math.floor(elapsed/60);
+
+      const seconds =
+        elapsed%60;
+
+
+      $("timer").textContent =
+        String(minutes).padStart(2,"0") +
+        ":" +
+        String(seconds).padStart(2,"0");
+
+
+      const config =
+        getLevelConfig(currentLevel);
+
+
+      /*
+        Time warning.
+      */
+
+      if(
+        config.timeLimit-elapsed <= 20 &&
+        config.timeLimit-elapsed > 0
+      ){
+
+        $("message").textContent =
+          "⏱️ Hurry! Time is running out!";
+
+      }
+
+
+      /*
+        Time limit.
+      */
+
+      if(elapsed >= config.timeLimit){
+
+        finishGame("timeout");
+
+      }
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   FINISH GAME
+   ========================================================= */
+
+function finishGame(winner){
+
+  if(!gameRunning){
+
+    return;
+
+  }
+
+
+  gameRunning = false;
+
+  clearInterval(timerInterval);
+
+  clearTimeout(botTimeout);
+
+
+  /*
+    Player win
+  */
+
+  if(winner === "player"){
+
+    const speedBonus =
+      Math.max(
+        0,
+        Math.round(
+          1000 -
+          elapsed*12
+        )
+      );
+
+
+    const levelBonus =
+      currentLevel*100;
+
+
+    const comboBonus =
+      combo*25;
+
+
+    let finalScore =
+      score +
+      speedBonus +
+      levelBonus +
+      comboBonus;
+
+
+    /*
+      Level 100 special bonus.
+    */
+
+    if(currentLevel === 100){
+
+      finalScore += 10000;
+
+    }
+
+
+    score = finalScore;
+
+
+    saveData.wins =
+      (saveData.wins || 0)+1;
+
+
+    if(score > (saveData.best || 0)){
+
+      saveData.best = score;
+
+    }
+
+
+    const previousBest =
+      saveData.levelBest[currentLevel] || 0;
+
+
+    if(score > previousBest){
+
+      saveData.levelBest[currentLevel] =
+        score;
+
+    }
+
+
+    /*
+      Unlock next level.
+    */
+
+    if(
+      currentLevel >=
+      (saveData.unlocked || 1)
+    ){
+
+      saveData.unlocked =
+        Math.min(
+          100,
+          currentLevel+1
+        );
+
+    }
+
+
+    save();
+
+
+    if(currentLevel === 100){
+
+      $("resultIcon").textContent =
+        "👑";
+
+      $("resultTitle").textContent =
+        "YOU BEAT 100 LEVELS!";
+
+      $("resultText").textContent =
+        "You are the ultimate Arrow Clash champion!";
+
+      $("resultScore").textContent =
+        "+" + score;
+
+      $("nextLevelBtn").classList.add(
+        "hidden"
+      );
+
+    }
+    else{
+
+      $("resultIcon").textContent =
+        "🏆";
+
+      $("resultTitle").textContent =
+        "YOU WIN!";
+
+      $("resultText").textContent =
+        "Level " +
+        currentLevel +
+        " completed. Next challenge unlocked.";
+
+      $("resultScore").textContent =
+        "+" + score;
+
+      $("nextLevelBtn").classList.remove(
+        "hidden"
+      );
+
+    }
+
+
+    showResult();
+
+  }
+
+
+  /*
+    Bot win
+  */
+
+  else if(winner === "bot"){
+
+    $("resultIcon").textContent =
+      "🤖";
+
+    $("resultTitle").textContent =
+      "BOT WINS";
+
+    $("resultText").textContent =
+      "The bot reached the goal first. Try again!";
+
+    $("resultScore").textContent =
+      score;
+
+
+    $("nextLevelBtn").classList.add(
+      "hidden"
+    );
+
+
+    showResult();
+
+  }
+
+
+  /*
+    Time out
+  */
+
+  else{
+
+    $("resultIcon").textContent =
+      "⏱️";
+
+    $("resultTitle").textContent =
+      "TIME UP!";
+
+    $("resultText").textContent =
+      "The clock beat you. Try the level again.";
+
+    $("resultScore").textContent =
+      score;
+
+
+    $("nextLevelBtn").classList.add(
+      "hidden"
+    );
+
+
+    showResult();
+
+  }
+
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+function showResult(){
+
+  resultOverlay.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+function closeResult(){
+
+  resultOverlay.classList.add(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+   STOP GAME
+   ========================================================= */
+
+function stopGame(){
+
+  gameRunning = false;
+
+  clearInterval(timerInterval);
+
+  clearTimeout(botTimeout);
+
+}
+
+
+/* =========================================================
+   NEXT LEVEL
+   ========================================================= */
+
+$("nextLevelBtn").addEventListener(
+  "click",
+  ()=>{
+
+    closeResult();
+
+    const next =
+      currentLevel+1;
+
+
+    if(next <= 100){
+
+      startGame(next);
+
+    }
+    else{
+
+      showLevels();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   LEVEL SELECT
+   ========================================================= */
+
+$("levelSelectBtn").addEventListener(
+  "click",
+  ()=>{
+
+    closeResult();
+
+    showLevels();
+
+  }
+);
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+$("playNow").addEventListener(
+  "click",
+  ()=>showLevels()
+);
+
+
+$("exitGame").addEventListener(
+  "click",
+  ()=>showLevels()
+);
+
+
+$("exitGame2").addEventListener(
+  "click",
+  ()=>showLevels()
+);
+
+
+$("restartGame").addEventListener(
+  "click",
+  ()=>startGame(currentLevel)
+);
+
+
+$("restartGame2").addEventListener(
+  "click",
+  ()=>startGame(currentLevel)
+);
+
+
+/* =========================================================
+   HOW TO PLAY
+   ========================================================= */
+
+$("howBtn").addEventListener(
+  "click",
+  ()=>{
+    howOverlay.classList.remove(
+      "hidden"
+    );
+  }
+);
+
+
+$("closeHow").addEventListener(
+  "click",
+  ()=>{
+    howOverlay.classList.add(
+      "hidden"
+    );
+  }
+);
+
+
+howOverlay.addEventListener(
+  "click",
+  event=>{
+
+    if(event.target === howOverlay){
+
+      howOverlay.classList.add(
+        "hidden"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   DIRECTION BUTTONS
+   ========================================================= */
+
+document.querySelectorAll(
+  ".control"
+).forEach(button=>{
+
+  button.addEventListener(
+    "click",
+    ()=>{
+      movePlayer(
+        button.dataset.dir
+      );
+    }
+  );
+
+});
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      !gameRunning
+    ){
+
+      return;
+
+    }
+
+
+    const keys = {
+
+      ArrowUp:"up",
+      w:"up",
+      W:"up",
+
+      ArrowRight:"right",
+      d:"right",
+      D:"right",
+
+      ArrowDown:"down",
+      s:"down",
+      S:"down",
+
+      ArrowLeft:"left",
+      a:"left",
+      A:"left"
+
+    };
+
+
+    const direction =
+      keys[event.key];
+
+
+    if(direction){
+
+      event.preventDefault();
+
+      movePlayer(direction);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SWIPE CONTROLS
+   ========================================================= */
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+
+boardElement.addEventListener(
+  "touchstart",
+  event=>{
+
+    if(!event.touches[0]){
+
+      return;
+
+    }
+
+
+    touchStartX =
+      event.touches[0].clientX;
+
+    touchStartY =
+      event.touches[0].clientY;
+
+  },
+  {passive:true}
+);
+
+
+boardElement.addEventListener(
+  "touchend",
+  event=>{
+
+    if(!event.changedTouches[0]){
+
+      return;
+
+    }
+
+
+    const endX =
+      event.changedTouches[0].clientX;
+
+    const endY =
+      event.changedTouches[0].clientY;
+
+
+    const dx =
+      endX-touchStartX;
+
+    const dy =
+      endY-touchStartY;
+
+
+    const threshold = 25;
+
+
+    if(
+      Math.abs(dx) < threshold &&
+      Math.abs(dy) < threshold
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      Math.abs(dx) >
+      Math.abs(dy)
+    ){
+
+      movePlayer(
+        dx > 0
+          ? "right"
+          : "left"
+      );
+
+    }
+    else{
+
+      movePlayer(
+        dy > 0
+          ? "down"
+          : "up"
+      );
+
+    }
+
+  },
+  {passive:true}
+);
+
+
+/* =========================================================
+   RESIZE
+   ========================================================= */
+
+window.addEventListener(
+  "resize",
+  ()=>{
+    if(gameRunning){
+      renderBoard();
+    }
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+loadSave();
+
+updateHomeStats();
+
+renderLevels();
+
+
+/*
+  First screen.
+*/
+
+hideAllScreens();
+
+homeScreen.classList.remove(
+  "hidden"
+);
+
+
+/* =========================================================
+   EXTRA GAMEPLAY:
+   Periodically change some arrows on
+   high-level boards.
+   ========================================================= */
+
+setInterval(()=>{
+
+  if(
+    !gameRunning ||
+    currentLevel < 60
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Don't destroy the player's current
+    route too frequently.
+  */
+
+  if(Math.random() > .25){
+
+    return;
+
+  }
+
+
+  const total =
+    boardData.length;
+
+
+  const count =
+    currentLevel >= 90
+      ? 3
+      : 1;
+
+
+  for(let i=0;i<count;i++){
+
+    const pos =
+      randomInt(
+        1,
+        total-2
+      );
+
+
+    const dirs =
+      validDirections(pos);
+
+
+    if(!dirs.length){
+
+      continue;
+
+    }
+
+
+    const random =
+      dirs[
+        Math.floor(
+          Math.random()*dirs.length
+        )
+      ];
+
+
+    boardData[pos] =
+      random.name;
+
+  }
+
+
+  renderBoard();
+
+
+},4500);
+
+
+/* =========================================================
+   SPECIAL LEVEL MESSAGES
+   ========================================================= */
+
+function specialLevelMessage(){
+
+  if(currentLevel === 10){
+
+    showToast(
+      "🔥 BOSS LEVEL 10"
+    );
+
+  }
+
+  if(currentLevel === 25){
+
+    showToast(
+      "🧠 BRAIN TEST"
+    );
+
+  }
+
+  if(currentLevel === 50){
+
+    showToast(
+      "⚡ HALF WAY!"
+    );
+
+  }
+
+  if(currentLevel === 75){
+
+    showToast(
+      "👑 LEGEND LEVEL"
+    );
+
+  }
+
+  if(currentLevel === 100){
+
+    showToast(
+      "👑 FINAL CLASH"
+    );
+
+  }
+
+}
+
+
+/*
+  Add special message shortly
+  after a level begins.
+*/
+
+const originalStartGame =
+  startGame;
+
+
+/*
+  We cannot redeclare startGame,
+  so use a small observer instead.
+*/
+
+let lastObservedLevel = 0;
+
+setInterval(()=>{
+
+  if(
+    gameRunning &&
+    currentLevel !== lastObservedLevel
+  ){
+
+    lastObservedLevel =
+      currentLevel;
+
+    setTimeout(
+      specialLevelMessage,
+      500
+    );
+
+  }
+
+},300);
+
+
+/* =========================================================
+   END
+   ========================================================= */
+</script>
+
+</body>
+</html>
